@@ -11,6 +11,15 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.13"
-  }
+    "nodemon": "^2.0.13",
+    "node": "14.17.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrea-everett/smart-brain-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andrea-everett/smart-brain-api/issues"
+  },
+  "homepage": "https://github.com/andrea-everett/smart-brain-api#readme"
 }

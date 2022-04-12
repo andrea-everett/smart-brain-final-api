@@ -4,22 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcrypt-nodejs": "^0.0.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "clarifai": "^2.9.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "nodemon": "^2.0.13",
-    "node": "14.17.2"
+    "knex": "^0.95.11",
+    "node": "14.17.2",
+    "pg": "^8.7.1",
+    "tachyons": "^4.12.0"
   },
   "repository": {
-    "type": "git",
+    "type": "module",
     "url": "git+https://github.com/andrea-everett/smart-brain-api.git"
   },
   "bugs": {
     "url": "https://github.com/andrea-everett/smart-brain-api/issues"
   },
-  "homepage": "https://github.com/andrea-everett/smart-brain-api#readme"
+  "homepage": "https://github.com/andrea-everett/smart-brain-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
 }

@@ -1,36 +1,46 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
+const bcrypt = require('bcryptjs');
 const knex = require('knex');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const app = express();
 
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
-const image = require('./controllers/image');
+const image = require ('./controllers/image');
+
 
 const db = knex({
     client: 'pg',
     connection: {
-      connectionString : 'process.env.DATABASE_URL',
-      ssl: true,
+      host : '127.0.0.1',
+      port : 5438, 
+      user: 'postgres',
+      password: 'postgres',
+      database : 'postgres'
     }
 });
 
-const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-app.use(cors())
-app.use(bodyParser.json());
+app.get('/', (_req, res)=> { res.send('db.users') });
 
-app.get('/', (req, res)=> { res.send('it is working!') })
-app.post('/signin', (req, res) => { signin.handleSignIn( db, bcrypt)})
-app.post('/register', (req, res)=>register.handleRegister(req, res, db, bcrypt))
-app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res)})
-app.put('/image', (req, res) => { image.handleImage(req, res, db)})
-app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)}) 
+app.post('/signin', (req, res) => { signin.handleSignin( req, res, db, bcrypt) });
 
-app.listen(process.env.PORT || 3000, ()=> {
-     console.log('app is running on port 3000 ${process.env.PORT}');
- })
+app.post('/register', (req, res)=> { register.handleRegister(req, res, db, bcrypt) });
+
+app.get('/profile:id', (req, res) => { profile.handleProfileGet(req, res, db) });
+
+app.put('/image', (req, res) => { image.handleImage(req, res, db) });
+
+app.post('/imageUrl', (req, res) => { image.handleApiCall(req, res) }); 
+
+
+app.listen(3000, ()=> {
+     console.log('hello');
+})
 
 

@@ -1,13 +1,13 @@
 const handleRegister = (req, res, db, bcrypt) => {
     const { email, name, password } = req.body;
     if (!email || !name || !password) {
-        return res.status(400).json('incorrect submission');
+        return res.status(400).json('incorrect form submission');
     }
     const hash = bcrypt.hashSync(password);
-        console.log('hash', hash, 'email', email, 'password', password);
-        console.log('db', db.transaction);
+        // console.log('hash', hash, 'email', email, 'password', password);
+        // console.log('db', db.transaction);
         db.transaction(trx => {
-            console.log('people')
+            // console.log('people')
             trx.insert({
                 hash: hash,
                 email: email
@@ -23,7 +23,7 @@ const handleRegister = (req, res, db, bcrypt) => {
                 joined: new Date()
             })
             .then(user => {
-                console.log('returning user')
+                // console.log('returning user')
                 res.json(user[0]);
             }) 
         })

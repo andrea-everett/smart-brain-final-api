@@ -1,8 +1,7 @@
-const handleSignin = ( req, res, db, bcrypt) => {
+const handleSignin = ( db, bcrypt) => (req, res) => {
     console.log('made it to signin handler')
     const { email, password } = req.body;
-    
-    if (!email || !password ){
+     if (!email || !password ){
         return res.status(400).json('incorrect submission');
     };
     db.select('email', 'hash').from('login')

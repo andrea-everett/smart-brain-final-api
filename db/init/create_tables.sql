@@ -1,5 +1,5 @@
 -- Creation of user table
-CREATE TABLE user ()
+CREATE TABLE user (
   id serial, 
   primary key (id),
   name VARCHAR(100),

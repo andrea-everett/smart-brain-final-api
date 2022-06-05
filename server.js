@@ -14,24 +14,11 @@ const image = require('./controllers/image');
 const db = knex({
   client: 'pg',
   connection: {
-      // connectionString: 
-      //   process.env.DATABASE_URL,
-      //     ssl: {
-      //       rejectUnauthorized:false
-      //     }
-      //  }
-      // });
-        host :  'postgresql-colorful-89405',
-        user: 'Andrea',
-        password: 'postgres',
-        db: 'postgres'  
-     }
-  });
-
-// postgres.select('*').from('users').then(data => {
-//   console.log(data);
-// });
-
+        host: process.env.DATABASE_URL,
+          ssl: true,
+        }
+    });
+  
 app.use(cors());
 app.use(bodyParser.json());
 app.get('/',  (req, res) =>{

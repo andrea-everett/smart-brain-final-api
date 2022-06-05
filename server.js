@@ -21,7 +21,7 @@ const db = knex({
       //     }
       //  }
       // });
-        host :  '127.0.0.1',
+        host :  'postgresql-colorful-89405',
         user: 'Andrea',
         password: 'postgres',
         db: 'postgres'  

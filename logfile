@@ -1,2 +1,0 @@
-2022-05-24 20:17:23.101 EDT [64392] FATAL:  data directory "/Users/Andrea/Documents/Documents - Joshua’s MacBook Air/coding-projects/smart-brain copy/smart-brain-copy/smart-brain-api/PGDATA" has invalid permissions
-2022-05-24 20:17:23.101 EDT [64392] DETAIL:  Permissions should be u=rwx (0700) or u=rwx,g=rx (0750).

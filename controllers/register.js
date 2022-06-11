@@ -6,8 +6,7 @@ const handleRegister = (req, res, db, bcrypt) => {
         return res.status(400).json('incorrect form submission');
     }
     const hash = bcrypt.hashSync(password);
-        // console.log('hash', hash, 'email', email, 'password', password);
-        console.log('db', db.transaction);
+        console.log('hash', hash, 'email', email, 'password', password);
         db.transaction(trx => {
             trx.insert({
                 hash: hash,
@@ -18,21 +17,21 @@ const handleRegister = (req, res, db, bcrypt) => {
             .then(loginEmail => {
                 console.log("LoginEmail", loginEmail)
                 return trx('users')
-                .returning('*')
-                .insert({
-                email: loginEmail[0].email,
-                name: name,
-                joined: new Date()
+                    .returning('*')
+                    .insert({
+                        email: loginEmail[0],
+                        name: name,
+                        joined: new Date()
+                    })
+                    .then(user => {
+                        console.log('returning user')
+                        res.json(user[0]);
+                    }) 
             })
-            .then(user => {
-                console.log('returning user')
-                res.json(user[0]);
-            }) 
+            .then(trx.commit)
+            .catch(trx.rollback)
         })
-        .then(trx.commit)
-        .catch(trx.rollback)
-    })
-    .catch(err => {
+        .catch(err => {
             console.log("Error", err)
             res.status(400).json('unable to register')
         }) 

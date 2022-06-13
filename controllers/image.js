@@ -1,17 +1,44 @@
-const Clarifai = require('clarifai');
+const {ClarifaiStub, grpc} = require("clarifai-nodejs-grpc");
 
-const app = new Clarifai.App({
-    apiKey: '2fec5ea6be9a432998736fe2b3cf3e92'
-});
+const stub = ClarifaiStub.grpc();
 
-const handleApiCall = (req, res) => {
-    app.models
-    .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-    .then(data => {
-         res.json(data);
-    })
-    .catch(err => res.status(400).json('unable to work with API'))
-};
+const metadata = new grpc.Metadata();
+metadata.set("authorization", "746a5b15da834a9a8149083e99b062e6");
+
+stub.PostModelOutputs = (req, res) => 
+    {
+        app.models
+        .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+        .then(data => {
+             res.json(data);
+        })
+    },
+    metadata,
+    (err, response) => {
+        if (err) {
+            console.log("Error: " + err);
+            return;
+        }
+
+        if (response.status.code !== 10000) {
+            console.log("Received failed status: " + response.status.description + "\n" + response.status.details);
+            return;
+        }
+
+        console.log("Predicted concepts, with confidence values:")
+        for (const c of response.outputs[0].data.concepts) {
+            console.log(c.name + ": " + c.value);
+        }
+    }
+
+// const handleApiCall = (req, res) => {
+//     app.models
+//     .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+//     .then(data => {
+//          res.json(data);
+//     })
+//     .catch(err => res.status(400).json('unable to work with API'))
+// };
 
 const handleImage = (req, res, db) => {
     const { id } = req.body;
@@ -26,5 +53,5 @@ const handleImage = (req, res, db) => {
 
 module.exports = {
     handleImage,
-    handleApiCall
+    // handleApiCall
 }

@@ -40,7 +40,7 @@ app.post('/signin', (req, res) => {signin.handleSignin(db, bcrypt)(req, res) });
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, salt) }) 
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) }) 
 app.put('/image', (req, res) => { image.handleImage(req, res, db)})    
-app.post('/outputs', (req, res) => { outputs.handleApiCall(req, res)})
+// app.post('/outputs', (req, res) => { outputs.handleApiCall(req, res)})
 
 app.listen(3000, ()=> {
   console.log(`server is running on port ${process.env.PORT}`);

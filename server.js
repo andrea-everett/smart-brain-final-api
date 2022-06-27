@@ -12,19 +12,19 @@ const image = require('./controllers/image');
 
 const db = knex({
   client: 'pg',
-  // connection: {
-  //   host: 'postgresql-colorful-89405',
-  //   user: 'postgres',
-  //   password: 'postgres',
-  //   database: 'postgres'
-  // }
   connection: {
-    connectionString:
-      process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized:false
-      }   
+    host: '127.0.0.1',
+    user: 'postgres',
+    password: 'postgres',
+    database: 'postgres'
   }
+  // connection: {
+  //   connectionString:
+  //     process.env.DATABASE_URL,
+  //     ssl: {
+  //       rejectUnauthorized:false
+  //     }   
+  // }
 });
 
 const app = express();
@@ -39,7 +39,7 @@ app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) }
 app.put('/image', (req, res) => { image.handleImage(req, res, db)})    
 // app.post('/outputs', (req, res) => { outputs.handleApiCall(req, res)})
 
-app.listen(process.env.PORT || 3000, ()=> {
+app.listen( 3000, ()=> {
   console.log(`server is running on port ${process.env.PORT}`);
 })
 
